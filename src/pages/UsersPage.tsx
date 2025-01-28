@@ -1,5 +1,6 @@
 import {Pagination} from "../components/pagination/Pagination.tsx";
 import {UsersComponent} from "../components/users/users-component/UsersComponent.tsx";
+import {Outlet} from "react-router";
 
 export const UsersPage = () => {
     return (
@@ -7,6 +8,7 @@ export const UsersPage = () => {
             <h2>List of users</h2>
             <UsersComponent/>
             <Pagination/>
+            <Outlet/>
         </>
     );
 };

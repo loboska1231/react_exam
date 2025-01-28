@@ -1,3 +1,5 @@
+import {IRecipe} from "./IRecipe.ts";
+
 export interface IRecipeResponse{
     recipes:IRecipe[],
     total:number,
