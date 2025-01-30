@@ -1,6 +1,7 @@
 import {FC} from "react";
 import {IUser} from "../../../models/users_model/IUser.ts";
 import {Link} from "react-router";
+
 type userProp = {user:IUser}
 export const UserComponent:FC<userProp> = ({user}) => {
     return (
