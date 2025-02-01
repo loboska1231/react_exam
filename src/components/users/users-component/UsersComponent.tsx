@@ -12,8 +12,7 @@ export const UsersComponent = () => {
         if(t)
             loadAuthUsers(+t)
                 .then(obj=>setUsers(obj))
-                .catch((reason)=>{
-                    console.log(reason)
+                .catch(()=>{
                     refresh().then(()=>{
                         loadAuthUsers(+t)
                             .then(obj=>setUsers(obj))
@@ -22,8 +21,7 @@ export const UsersComponent = () => {
         else
             loadAuthUsers(0)
                 .then(obj=>setUsers(obj))
-                .catch((reason)=>{
-                    console.log(reason);
+                .catch(()=>{
                     refresh().then(()=>{
                         loadAuthUsers(0).then(obj=>setUsers(obj))
                     })

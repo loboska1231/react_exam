@@ -5,7 +5,6 @@ import {IRecipeResponse} from "../models/recipes_model/IRecipeResponse.ts";
 import {ITokens} from "../models/tokens/ITokens.ts";
 import {retriveLocalStorage} from "./helpers.ts";
 import {IUser} from "../models/users_model/IUser.ts";
-import {IRecipe} from "../models/recipes_model/IRecipe.ts";
 
 const axiosInstance = axios.create({
     baseURL:'https://dummyjson.com/auth',
@@ -26,7 +25,6 @@ const loadAuthUsers = async (pg:number) =>{
 }
 const loadAuthUser = async (userId:number) =>{
     const {data} = await axiosInstance.get<IUser>(`/users/${userId}`);
-    console.log(data)
     return data;
 }
 const loadAuthRecipes = async (pg:number) =>{
@@ -36,6 +34,10 @@ const loadAuthRecipes = async (pg:number) =>{
 const loadAuthRecipe = async (userId:number) =>{
     const {data:{recipes}} = await axiosInstance.get<IRecipeResponse>(`/recipes`);
     return recipes.find(t=>t.userId == userId);
+}
+const loadAuthRecipesByTag = async (tag:string,pg:number) =>{
+    const {data:{recipes}} = await axiosInstance.get<IRecipeResponse>(`/recipes/tag/${tag}?skip=${(pg>1)?(pg-1)*10:0}&limit=10`)
+    return recipes;
 }
 const refresh = async () =>{
     const userWithTokens  = retriveLocalStorage<IUserWithTokens>('auth');
@@ -48,15 +50,10 @@ const refresh = async () =>{
 }
 
 axiosInstance.interceptors.request.use((request)=>{
-    console.log(request)
     if(request.method?.toUpperCase() =="GET")
         request.headers.Authorization = 'Bearer ' + retriveLocalStorage<IUserWithTokens>('auth').accessToken;
     return request;
 })
-axiosInstance.interceptors.response.use((response)=>{
-    console.log(response)
-    return response;
-})
 export {
-    login, loadAuthRecipes,loadAuthUsers,refresh,loadAuthUser, loadAuthRecipe
+    login, loadAuthRecipes,loadAuthUsers,refresh,loadAuthUser, loadAuthRecipe, loadAuthRecipesByTag
 }

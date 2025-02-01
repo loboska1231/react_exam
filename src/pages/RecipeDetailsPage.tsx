@@ -3,6 +3,7 @@ import {RecipeDetails} from "../components/recipes/recipes-details-component/Rec
 
 export const RecipeDetailsPage = () => {
     const {state} = useLocation();
+
     return (
         <div>
             <RecipeDetails recipe={state}/>

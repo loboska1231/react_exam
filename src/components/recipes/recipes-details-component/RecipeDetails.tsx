@@ -17,7 +17,7 @@ export const RecipeDetails:FC<recipeProp> = ({recipe}) => {
                 <li>user id ::{recipe.userId}</li>
                 <li>tags
                     <ol>
-                        {recipe.tags.map(tag=><li><Link to={'auth/recipes/byTag'}>{tag}</Link></li>)}
+                        {recipe.tags.map(tag=><li><Link to={`/auth/recipes/recipesByTag/${tag}`}>{tag}</Link></li>)}
                     </ol>
                 </li>
                 <img style={{width: 400}} src={recipe.image} alt={recipe.name}/>
