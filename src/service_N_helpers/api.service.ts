@@ -16,8 +16,10 @@ type userProp ={
     expiresInMins:number
 }
 const login  = async({username,password,expiresInMins}:userProp) =>{
-    const {data} = await axiosInstance.post<IUserWithTokens>('/login',{username,password,expiresInMins});
+    const {data,statusText} = await axiosInstance.post<IUserWithTokens>('/login',{username,password,expiresInMins});
     localStorage.setItem('auth',JSON.stringify(data));
+    console.log(statusText)
+    return statusText;
 }
 const loadAuthUsers = async (pg:number) =>{
     const {data:{users}} = await axiosInstance.get<IUserResponse>(`/users?skip=${(pg>1)?(pg-1)*10:0}&limit=10`);
@@ -39,6 +41,11 @@ const loadAuthRecipesByTag = async (tag:string,pg:number) =>{
     const {data:{recipes}} = await axiosInstance.get<IRecipeResponse>(`/recipes/tag/${tag}?skip=${(pg>1)?(pg-1)*10:0}&limit=10`)
     return recipes;
 }
+const searchUsers = async (param:string)=>{
+    const {data:{users}} = await axiosInstance.get<IUserResponse>(`users/search?q=${param}`)
+    return users;
+}
+
 const refresh = async () =>{
     const userWithTokens  = retriveLocalStorage<IUserWithTokens>('auth');
     const {data:{accessToken,refreshToken}}= await axiosInstance.post<ITokens>('/refresh',
@@ -55,5 +62,7 @@ axiosInstance.interceptors.request.use((request)=>{
     return request;
 })
 export {
-    login, loadAuthRecipes,loadAuthUsers,refresh,loadAuthUser, loadAuthRecipe, loadAuthRecipesByTag
+    login, loadAuthRecipes,loadAuthUsers,refresh,
+    loadAuthUser, loadAuthRecipe, loadAuthRecipesByTag,
+    searchUsers
 }

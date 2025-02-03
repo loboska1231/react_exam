@@ -1,36 +1,25 @@
 import {useSearchParams} from "react-router";
-import {useEffect, useState} from "react";
-import {IRecipe} from "../../../models/recipes_model/IRecipe.ts";
-import {loadAuthRecipes, refresh} from "../../../service_N_helpers/api.service.ts";
+import {useEffect} from "react";
+import {loadAuthRecipes} from "../../../service_N_helpers/api.service.ts";
 import {RecipeComponent} from "../recipe-component/RecipeComponent.tsx";
+
+import {useDispatch} from "react-redux";
+import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
+import {recipeSlice} from "../../../redux/slices/recipeSlice/recipeSlice.ts";
 
 export const RecipesComponent = () => {
     const [query] = useSearchParams('pg');
-    const [recipes,setRecipes] = useState<IRecipe[]>([]);
+    const {recipeSlice: {recipes}} = useAppSelector(state => state);
+    const dispatch = useDispatch();
     useEffect(() => {
-        const t = query.get('pg');
-        if(t)
-            loadAuthRecipes(+t)
-                .then(obj=>setRecipes(obj))
-                .catch(()=>{
-                    refresh().then(()=>{
-                        loadAuthRecipes(+t)
-                            .then(obj=>setRecipes(obj))
-                    })
-                })
-        else
-            loadAuthRecipes(0)
-                .then(obj=>setRecipes(obj))
-                .catch(()=>{
-                    refresh().then(()=>{
-                        loadAuthRecipes(0)
-                            .then(obj=>setRecipes(obj))
-                    })
-                })
+        const t= query.get('pg');
+        loadAuthRecipes((!t? 0 : +t )).then(obj=>{
+                dispatch( recipeSlice.actions.loadRecipes(obj))
+        })
     }, [query]);
     return (
         <>
-            {recipes.map(recipe => <RecipeComponent key={recipe.id} recipe={recipe}/>)}
+            {recipes.map(recipe => <RecipeComponent key={recipe.userId} recipe={recipe}/>)}
         </>
     );
 };

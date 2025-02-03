@@ -1,12 +1,13 @@
-import {Outlet, useLocation} from "react-router";
-import {Test} from "../components/users/user-details-component/Test.tsx";
+import {useLocation} from "react-router";
+import {UserDetailComponent} from "../components/users/user-details-component/UserDetailComponent.tsx";
+import {BackButton} from "../components/back-button-component/BackButton.tsx";
 
 export const UserDetailsPage = () => {
     const {state} = useLocation();
     return (
         <>
-            <Test user={state}/>
-            <Outlet/>
+            <UserDetailComponent user={state}/>
+            <BackButton/>
         </>
     );
 };

@@ -7,8 +7,8 @@ export const RecipeComponent:FC<recipeProp> = ({recipe}) => {
 
     return (
         <div>
-            <p>{recipe.id}</p>
-            dish = <Link to={'/auth/recipes/recipeDetails'} state={recipe}>{recipe.name}</Link>
+            recipe id :: {recipe.id},
+            dish = <Link to={'/auth/recipes/recipeDetails'} state={recipe}>{recipe.name}</Link>,
             tags = {recipe.tags.map(tag=> <Link to={`/auth/recipes/recipesByTag/${tag}`}>{tag}  </Link>)}
         </div>
     );

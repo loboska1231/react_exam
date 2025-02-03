@@ -1,37 +1,32 @@
 import {useSearchParams} from "react-router";
-import {FC, useEffect, useState} from "react";
-import {IRecipe} from "../../../models/recipes_model/IRecipe.ts";
+import {FC, useEffect} from "react";
 import {loadAuthRecipesByTag, refresh} from "../../../service_N_helpers/api.service.ts";
 import {RecipeComponent} from "../recipe-component/RecipeComponent.tsx";
+import {Pagination} from "../../pagination/Pagination.tsx";
+import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
+import {recipeSlice} from "../../../redux/slices/recipeSlice/recipeSlice.ts";
+import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 
 type tagProp = {tag:string}
 export const RecipesByTagComponent:FC<tagProp> = ({tag}) => {
     const [query] = useSearchParams('pg');
-    const [recipes,setRecipes] = useState<IRecipe[]>([]);
+    const{recipeSlice:{recipes}}= useAppSelector(state => state);
+    const dispath = useAppDispatch();
     useEffect(() => {
         const t = query.get('pg');
-        if(t)
-            loadAuthRecipesByTag(tag,+t)
-                .then(obj=>setRecipes(obj))
-                .catch(()=>{
-                    refresh().then(()=>{
-                        loadAuthRecipesByTag(tag,+t)
-                            .then(obj=>setRecipes(obj))
-                    })
+        loadAuthRecipesByTag(tag,(!t? 0 : +t))
+            .then(obj=>dispath(recipeSlice.actions.loadRecipes(obj)))
+            .catch(()=>{
+                refresh().then(()=>{
+                    loadAuthRecipesByTag(tag,(!t? 0 : +t))
+                        .then(obj=>dispath(recipeSlice.actions.loadRecipes(obj)))
                 })
-        else
-            loadAuthRecipesByTag(tag,0)
-                .then(obj=>setRecipes(obj))
-                .catch(()=>{
-                    refresh().then(()=>{
-                        loadAuthRecipesByTag(tag,0)
-                            .then(obj=>setRecipes(obj))
-                    })
-                })
-    }, [recipes]);
+            })
+    }, [tag]);
     return (
         <>
             {recipes.map(recipe => <RecipeComponent key={recipe.id} recipe={recipe}/>)}
+            {recipes.length>=11 ? <Pagination/>: <p>less or eq 10</p>}
         </>
     );
 };

@@ -1,6 +1,6 @@
 import {RecipesByTagComponent} from "../components/recipes/recipes-by-tag-component/RecipesByTagComponent.tsx";
 import {useParams} from "react-router";
-import {Pagination} from "../components/pagination/Pagination.tsx";
+import {BackButton} from "../components/back-button-component/BackButton.tsx";
 
 export const RecipesByTagPage = () => {
     const {tag} = useParams();
@@ -8,7 +8,7 @@ export const RecipesByTagPage = () => {
         <div>
             <h2>List of recipes ( by tag )</h2>
             <RecipesByTagComponent tag={tag}/>
-            <Pagination/>
+            <BackButton/>
         </div>
     );
 };

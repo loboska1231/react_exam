@@ -1,35 +1,28 @@
 import {UserComponent} from "../user-component/UserComponent.tsx";
-import {useEffect, useState} from "react";
-import {IUser} from "../../../models/users_model/IUser.ts";
-import {loadAuthUsers, refresh} from "../../../service_N_helpers/api.service.ts";
+import {useEffect} from "react";
+import {loadAuthUsers} from "../../../service_N_helpers/api.service.ts";
 import {useSearchParams} from "react-router";
+import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
+import {usersSlice} from "../../../redux/slices/userSlice/usersSlice.ts";
+import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
+
 
 export const UsersComponent = () => {
-    const [query] = useSearchParams('pg');
-    const [users,setUsers] = useState<IUser[]>([]);
+    const [query] = useSearchParams('pg')
+    const {userSlice: {users}} = useAppSelector(state => state);
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        const t = query.get('pg');
-        if(t)
-            loadAuthUsers(+t)
-                .then(obj=>setUsers(obj))
-                .catch(()=>{
-                    refresh().then(()=>{
-                        loadAuthUsers(+t)
-                            .then(obj=>setUsers(obj))
-                    })
-                })
-        else
-            loadAuthUsers(0)
-                .then(obj=>setUsers(obj))
-                .catch(()=>{
-                    refresh().then(()=>{
-                        loadAuthUsers(0).then(obj=>setUsers(obj))
-                    })
-                })
+        const t= query.get('pg');
+            loadAuthUsers((!t? 0 : +t )).then(obj=>{
+                dispatch( usersSlice.actions.loadUsers(obj))
+            })
     }, [query]);
     return (
         <>
-            {users.map(user=><UserComponent key={user.id} user={user}/>)}
+            {   (users.length>1)?
+                    users.map(user=><UserComponent key={user.id} user={user}/>)
+                : <p>end</p>
+            }
         </>
     );
 };
