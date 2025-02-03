@@ -6,7 +6,7 @@ import {UserLogo} from "../user-logo/UserLogo.tsx";
 export const Menu = () => {
     const {bool_auth} = useContext(MyContext);
     return (
-       <>
+       <div className='bg-green-200'>
            {bool_auth ?
                <div>
                    <UserLogo/>
@@ -17,6 +17,6 @@ export const Menu = () => {
                </div>
                : <Link to={'login'}>Login</Link>}
 
-       </>
+       </div>
     );
 };

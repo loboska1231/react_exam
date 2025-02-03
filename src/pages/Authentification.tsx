@@ -17,7 +17,8 @@ export const Authentification = () => {
     const navigator = useNavigate();
     return (
         <div>
-            <form onSubmit={handleSubmit((data)=>{
+            <form className='w-70 flex flex-col'
+                  onSubmit={handleSubmit((data)=>{
                 login({...data,expiresInMins:(!data.expiresInMins ? 60 : data.expiresInMins)})
                     .then(status=>{
                         if(status=='OK') {
@@ -26,10 +27,11 @@ export const Authentification = () => {
                         }
                     })
             })}>
-                <input type="text" placeholder={'user name'} {...register('username')}/>
+                <input className='border-black border-solid'
+                    type="text" placeholder={'user name'} {...register('username')}/>
                 <input type="password" placeholder={'password'} {...register('password')}/>
                 <input type="number" placeholder={'minute'} {...register('expiresInMins')}/>
-                <button>log in</button>
+                <button className='bg-gray-300'>log in</button>
             </form>
         </div>
     );

@@ -1,10 +1,11 @@
 import {useEffect} from "react";
-import {loadAuthUser} from "../../service_N_helpers/api.service.ts";
+
 import {singleUserSlice} from "../../redux/slices/userSlice/usersSlice.ts";
 import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
+import {loadAuthUser} from "../../service_N_helpers/users.service.ts";
 
-export const useSingleEffect = (state:string)=>{
+export const useSingleUserEffect = (state:string)=>{
     const {singleUserSlice:{user}} = useAppSelector(state=>state)
     const dispatch = useAppDispatch();
     useEffect(() => {

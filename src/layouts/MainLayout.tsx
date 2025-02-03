@@ -5,13 +5,12 @@ import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {contextSlice} from "../redux/slices/contextSlice/contextSlice.ts";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 
-
 export const MainLayout = () => {
     const {contextSlice:{bool_auth}} = useAppSelector(state => state)
     const dispatch = useAppDispatch();
     const t:boolean = !localStorage.getItem('auth') ? bool_auth : true;
     return (
-        <>
+        <div className='bg-gray-200'>
             <MyContext.Provider value={{
                 bool_auth:t,
                 MySwitch:(obj)=>{
@@ -23,6 +22,6 @@ export const MainLayout = () => {
                 <hr/>
                 <Outlet/>
             </MyContext.Provider>
-        </>
+        </div>
     );
 };

@@ -6,10 +6,12 @@ type recipeProp= {recipe:IRecipe}
 export const RecipeComponent:FC<recipeProp> = ({recipe}) => {
 
     return (
-        <div>
+        <div >
             recipe id :: {recipe.id},
-            dish = <Link to={'/auth/recipes/recipeDetails'} state={recipe}>{recipe.name}</Link>,
-            tags = {recipe.tags.map(tag=> <Link to={`/auth/recipes/recipesByTag/${tag}`}>{tag}  </Link>)}
+            dish = <Link className='text-blue-700'
+            to={'/auth/recipes/recipeDetails'} state={recipe}>{recipe.name}</Link>,
+            tags = {recipe.tags.map(tag=> <Link className='text-blue-700'
+                   to={`/auth/recipes/recipesByTag/${tag}`}>{tag}  </Link>)}
         </div>
     );
 };

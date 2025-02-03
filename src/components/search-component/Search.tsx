@@ -9,9 +9,8 @@ export const Search = () => {
             <h3>search by id, name(only 1 word) and tag ( only for recipes) </h3>
             <form onSubmit={handleSubmit((data)=>{
                 navigator(`search`,{state: data.param})
-                console.log(data.param)
             })}>
-                <input type="text" {...register('param')} />
+                <input className='bg-white rounded-md' type="text" {...register('param')} />
                 <button>search</button>
             </form>
         </div>

@@ -6,7 +6,7 @@ export const RecipeDetailsPage = () => {
     const {state} = useLocation();
 
     return (
-        <div>
+        <div className='bg-green-200'>
             <RecipeDetails recipe={state}/>
             <BackButton/>
         </div>

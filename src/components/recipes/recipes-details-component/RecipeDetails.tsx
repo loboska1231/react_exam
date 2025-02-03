@@ -21,11 +21,11 @@ export const RecipeDetails:FC<recipeProp> = ({recipe}) => {
                 <li>user id ::{recipe.userId}</li>
                 <li>tags
                     <ol>
-                        {recipe.tags.map(tag=><li><Link to={`/auth/recipes/recipesByTag/${tag}`}>{tag}</Link></li>)}
+                        {recipe.tags.map(tag=><li><Link className='text-blue-700' to={`/auth/recipes/recipesByTag/${tag}`}>{tag}</Link></li>)}
                     </ol>
                 </li>
                 <img style={{width: 400}} src={recipe.image} alt={recipe.name}/>
-                <li>{(!user)? 'dont have user':<Link to={'/auth/users/details'} state={user}>{user.username} </Link>}</li>
+                <li>{(!user)? 'dont have user':<Link className='text-blue-700' to={'/auth/users/details'} state={user}>{user.username} </Link>}</li>
             </ul>
         </div>
     );

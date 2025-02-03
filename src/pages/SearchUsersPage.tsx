@@ -1,13 +1,13 @@
 import {useLocation} from "react-router";
 import {BackButton} from "../components/back-button-component/BackButton.tsx";
-import {useSingleEffect} from "../components/hooks/useSingleEffect.tsx";
+import {useSingleUserEffect} from "../components/hooks/useSingleUserEffect.tsx";
 import {UserComponent} from "../components/users/user-component/UserComponent.tsx";
-import {useSearchEffect} from "../components/hooks/useSearchEffect.tsx";
+import {useSearchUsersEffect} from "../components/hooks/useSearchUsersEffect.tsx";
 
 export const SearchUsersPage = () => {
     const {state} = useLocation();
-    const user = useSingleEffect(state);
-    const users = useSearchEffect(state);
+    const user = useSingleUserEffect(state);
+    const users = useSearchUsersEffect(state);
     return (
         <>
             {
