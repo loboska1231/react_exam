@@ -1,10 +1,10 @@
 import {FC, useEffect} from "react";
-import {loadAuthUser} from "../../../service_N_helpers/api.service.ts";
 import {Link} from "react-router";
 import {IRecipe} from "../../../models/recipes_model/IRecipe.ts";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {singleUserSlice} from "../../../redux/slices/userSlice/usersSlice.ts";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
+import {loadAuthUser} from "../../../service_N_helpers/users.service.ts";
 
 type recipeProp = {recipe:IRecipe};
 export const RecipeDetails:FC<recipeProp> = ({recipe}) => {

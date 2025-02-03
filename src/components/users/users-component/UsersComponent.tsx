@@ -1,10 +1,10 @@
 import {UserComponent} from "../user-component/UserComponent.tsx";
 import {useEffect} from "react";
-import {loadAuthUsers} from "../../../service_N_helpers/api.service.ts";
 import {useSearchParams} from "react-router";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {usersSlice} from "../../../redux/slices/userSlice/usersSlice.ts";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
+import {loadAuthUsers} from "../../../service_N_helpers/users.service.ts";
 
 
 export const UsersComponent = () => {

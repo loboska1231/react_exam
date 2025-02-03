@@ -1,11 +1,12 @@
 import {useSearchParams} from "react-router";
 import {FC, useEffect} from "react";
-import {loadAuthRecipesByTag, refresh} from "../../../service_N_helpers/api.service.ts";
 import {RecipeComponent} from "../recipe-component/RecipeComponent.tsx";
 import {Pagination} from "../../pagination/Pagination.tsx";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {recipeSlice} from "../../../redux/slices/recipeSlice/recipeSlice.ts";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
+import {loadAuthRecipesByTag} from "../../../service_N_helpers/recipes.service.ts";
+import {refresh} from "../../../service_N_helpers/api.service.ts";
 
 type tagProp = {tag:string}
 export const RecipesByTagComponent:FC<tagProp> = ({tag}) => {

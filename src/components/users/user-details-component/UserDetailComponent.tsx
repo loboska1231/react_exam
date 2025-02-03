@@ -1,11 +1,11 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import {IUser} from "../../../models/users_model/IUser.ts";
-import {loadAuthRecipeOfUser} from "../../../service_N_helpers/api.service.ts";
-import {IRecipe} from "../../../models/recipes_model/IRecipe.ts";
 import {Link} from "react-router";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 import {singleRecipeSlice} from "../../../redux/slices/recipeSlice/recipeSlice.ts";
+import {loadAuthRecipeOfUser} from "../../../service_N_helpers/recipes.service.ts";
+
 type userProp= {user:IUser}
 export const UserDetailComponent:FC<userProp> = ({user}) => {
 
